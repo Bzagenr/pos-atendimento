@@ -1,14 +1,5 @@
-pos_atendimento/
-├── app/
-│   ├── __init__.py
-│   ├── main.py          ← copiar main.py
-│   ├── database.py      ← copiar database.py
-│   ├── models/
-│   │   └── paciente.py  ← copiar models/paciente.py
-│   ├── schemas/
-│   │   └── paciente.py  ← copiar schemas/paciente.py
-│   └── routers/
-│       └── paciente.py  ← copiar routers/paciente.py
-├── .env                 ← preencher manualmente
-├── .gitignore           ← copiar gitignore.txt renomeando
-└── requirements.txt     ← copiar requirements.txt
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+python-dotenv
