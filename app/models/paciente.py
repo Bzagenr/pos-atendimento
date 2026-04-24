@@ -9,3 +9,4 @@ class Paciente(Base):
     telefone          = Column(String(20), nullable=False)
     consentimentoLGPD = Column(Boolean, nullable=False, default=False)
     dataConsentimento = Column(DateTime, nullable=True)
+    cpf = Column(String(14), nullable=True, unique=True)

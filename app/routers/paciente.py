@@ -53,6 +53,8 @@ def atualizar_paciente(id: int, dados: PacienteUpdate, db: Session = Depends(get
 
     if dados.nome is not None:
         paciente.nome = dados.nome
+    if dados.cpf is not None: 
+        paciente.cpf = dados.cpf
     if dados.telefone is not None:
         paciente.telefone = dados.telefone
     if dados.consentimentoLGPD is not None:
