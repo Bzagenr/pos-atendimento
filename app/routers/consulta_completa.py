@@ -12,12 +12,18 @@ router = APIRouter(tags=["Consulta Completa"])
 
 
 @router.get("/paciente/{cpf}/ultima-consulta")
-def ultima_consulta_por_cpf(cpf: str, db: Session = Depends(get_db)):
+def ultima_consulta_por_cpf(cpf: str, dataNascimento: str = None, db: Session = Depends(get_db)):
     # Busca o paciente pelo CPF
     paciente = db.query(Paciente).filter(Paciente.cpf == cpf).first()
     if not paciente:
         raise HTTPException(status_code=404, detail="Paciente não encontrado")
 
+    # Valida data de nascimento se informada
+    if dataNascimento and paciente.dataNascimento:
+        from datetime import date
+        data_informada = date.fromisoformat(dataNascimento)
+        if data_informada != paciente.dataNascimento:
+            raise HTTPException(status_code=404, detail="CPF ou data de nascimento não conferem")
     # Busca a consulta mais recente finalizada
     consultas = (
         db.query(Consulta)
