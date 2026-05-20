@@ -14,10 +14,12 @@ router = APIRouter(prefix="/pacientes", tags=["Pacientes"])
 @router.post("/", response_model=PacienteResponse, status_code=201)
 def criar_paciente(dados: PacienteCreate, db: Session = Depends(get_db)):
     paciente = Paciente(
-        nome=dados.nome,
-        telefone=dados.telefone,
-        consentimentoLGPD=dados.consentimentoLGPD,
-        dataConsentimento=datetime.now() if dados.consentimentoLGPD else None
+    nome=dados.nome,
+    telefone=dados.telefone,
+    cpf=dados.cpf,
+    dataNascimento=dados.dataNascimento,
+    consentimentoLGPD=dados.consentimentoLGPD,
+    dataConsentimento=datetime.now() if dados.consentimentoLGPD else None
     )
     db.add(paciente)
     db.commit()

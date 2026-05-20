@@ -35,8 +35,11 @@ def criar_receita(dados: ReceitaCreate, db: Session = Depends(get_db)):
         hash=dados.hash
     )
     db.add(receita)
-    db.flush()  # gera o idReceita sem commitar ainda
-
+    db.flush()
+    
+    print(f"idReceita gerado: {receita.idReceita}")
+    print(f"Medicamentos recebidos: {dados.medicamentos}")
+    
     for item in dados.medicamentos:
         med_receita = MedicamentoReceita(
             idReceita=receita.idReceita,
@@ -47,11 +50,12 @@ def criar_receita(dados: ReceitaCreate, db: Session = Depends(get_db)):
             observacao=item.observacao
         )
         db.add(med_receita)
+        print(f"Adicionado: {item.idMedicamento}")
 
     db.commit()
-    db.refresh(receita)
+    receita = db.query(Receita).filter(Receita.idReceita == receita.idReceita).first()
+    print(f"Medicamentos na receita: {receita.medicamentos}")
     return receita
-
 
 @router.get("/receitas/{id}", response_model=ReceitaResponse)
 def buscar_receita(id: int, db: Session = Depends(get_db)):

@@ -20,7 +20,7 @@ class Receita(Base):
     hash       = Column(String(255), nullable=True)
 
     consulta             = relationship("Consulta", foreign_keys=[idConsulta])
-    medicamento_receitas = relationship("MedicamentoReceita", back_populates="receita")
+    medicamentos = relationship("MedicamentoReceita", back_populates="receita")
 
 
 class MedicamentoReceita(Base):
@@ -34,5 +34,5 @@ class MedicamentoReceita(Base):
     duracaoDias          = Column(Integer, nullable=True)
     observacao           = Column(Text, nullable=True)
 
-    receita      = relationship("Receita", back_populates="medicamento_receitas")
+    receita = relationship("Receita", back_populates="medicamentos")
     medicamento  = relationship("Medicamento", back_populates="medicamento_receitas")
